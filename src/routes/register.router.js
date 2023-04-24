@@ -31,7 +31,11 @@ router.post('/login', async (req, res) => {
   if (user) {
     req.session['email'] = email;
     req.session['password'] = password;
-    req.session['logged'] = true;
+    if (email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
+      req.session['isAdmin'] = true;
+    } else {
+      req.session['isAdmin'] = false;
+    }
     res.redirect('/views/realtimeproducts');
   } else {
     res.redirect('/register/errorLogin');
