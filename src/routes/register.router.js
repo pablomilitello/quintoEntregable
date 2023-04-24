@@ -25,26 +25,30 @@ router.get('/errorRegister', (req, res) => {
   res.render('errorRegister');
 });
 
+router.get('/errorLogin', (req, res) => {
+  res.render('errorLogin');
+});
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const user = await usersManager.loginUser(req.body);
   if (user) {
     req.session['email'] = email;
-    req.session['password'] = password;
+    req.session['firstName'] = user.firstName;
     if (email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
-      req.session['isAdmin'] = true;
+      req.session['role'] = 'admin';
     } else {
-      req.session['isAdmin'] = false;
+      req.session['role'] = 'user';
     }
-    res.redirect('/views/realtimeproducts');
+    res.redirect(`/views/realtimeproducts`);
   } else {
     res.redirect('/register/errorLogin');
   }
 });
 
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/login');
+    res.redirect('/register/login');
   });
 });
 

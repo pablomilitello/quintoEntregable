@@ -1,5 +1,5 @@
 {{#if products.length}}
-  <h2>WELCOME {{email}}</h2>
+  <h2>Welcome {{firstName}}!</h2>
   <h2 align='center'>List of existing products online</h2>
 
   <table class='table' id='table' cellPadding='10' border='1' align='center'>
@@ -43,7 +43,9 @@
   <button type='submit' id='addProduct'>Add product</button>
 </form>
 
-<button type='submit'> LOGOUT</button>
+<form action='/register/logout' method='post'>
+  <button type='submit'> LOGOUT</button>
+</form>
 
 <script src='/socket.io/socket.io.js'></script>
 <script src='/js/index.js'></script>

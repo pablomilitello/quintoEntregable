@@ -20,12 +20,8 @@ class UsersManager {
   async loginUser(user) {
     const { email, password } = user;
     try {
-      const user = await userModel.find({ email, password });
-      if (user.length !== 0) {
-        return user;
-      } else {
-        return null;
-      }
+      const user = await userModel.findOne({ email, password });
+      return user;
     } catch (error) {
       console.log(error);
       throw new Error(error);

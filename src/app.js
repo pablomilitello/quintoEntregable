@@ -29,22 +29,6 @@ app.set('view engine', 'handlebars');
 //Cookies
 app.use(cookieParser('secretPass'));
 
-//File Sessions
-// import FileStore from 'session-file-store';
-// const fileStore = FileStore(session);
-
-// app.use(
-//   session({
-//     store: new fileStore({
-//       path: __dirname + '/sessions',
-//     }),
-//     secret: 'secretSession',
-//     cookie: {
-//       maxAge: 120000,
-//     },
-//   })
-// );
-
 //Mongo Sessions
 const URI = 'mongodb+srv://pmilitello:12345@cluster0.op8ms3d.mongodb.net/ecommerce?retryWrites=true&w=majority';
 app.use(
