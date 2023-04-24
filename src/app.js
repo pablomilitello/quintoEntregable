@@ -1,6 +1,5 @@
 import express from 'express';
 import productsRouter from './routes/products.router.js';
-//import loginRouter from './routes/login.router.js';
 import cartsRouter from './routes/carts.router.js';
 import { __dirname } from './utils.js';
 import handlebars from 'express-handlebars';
@@ -11,7 +10,6 @@ import ProductManager from '../src/Dao/ProductManagerMongo.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import registerRouter from './routes/register.router.js';
-//import loginSession from './routes/loginSession.router.js';
 import mongoStore from 'connect-mongo';
 
 const path = __dirname + '/products.json';
@@ -65,9 +63,7 @@ app.use(
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/views', viewsRouter);
-//app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-//app.use('/loginSession', loginSession);
 
 app.get('/createCookie', (req, res) => {
   res.cookie('cookie2', 'Second Cookie').send('Cookie added');

@@ -18,17 +18,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get("/products", async (req, res) => {
+router.get('/products', async (req, res) => {
   const { limit = 10, page = 0 } = req.query;
-  const products = await productManager.getProducts(
-    limit,
-    page,
-    undefined,
-    undefined,
-    undefined,
-    true
-  );
-  res.render("products", {
+  const products = await productManager.getProducts(limit, page, undefined, undefined, undefined, true);
+  res.render('products', {
     products: products.docs,
     nextPage: products.nextPage,
     prevPage: products.prevPage,
