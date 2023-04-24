@@ -1,6 +1,6 @@
 import express from 'express';
 import productsRouter from './routes/products.router.js';
-import loginRouter from './routes/login.router.js';
+//import loginRouter from './routes/login.router.js';
 import cartsRouter from './routes/carts.router.js';
 import { __dirname } from './utils.js';
 import handlebars from 'express-handlebars';
@@ -10,7 +10,9 @@ import './db/dbConfig.js';
 import ProductManager from '../src/Dao/ProductManagerMongo.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-import loginSession from './routes/loginSession.router.js';
+import registerRouter from './routes/register.router.js';
+//import loginSession from './routes/loginSession.router.js';
+import mongoStore from 'connect-mongo';
 
 const path = __dirname + '/products.json';
 const productManager = new ProductManager(path);
@@ -29,14 +31,33 @@ app.set('view engine', 'handlebars');
 //Cookies
 app.use(cookieParser('secretPass'));
 
-app.get('/createCookie', (req, res) => {
-  res.cookie('cookie2', 'Second Cookie').send('Cookie added');
-});
+//File Sessions
+// import FileStore from 'session-file-store';
+// const fileStore = FileStore(session);
 
-//Sessions
+// app.use(
+//   session({
+//     store: new fileStore({
+//       path: __dirname + '/sessions',
+//     }),
+//     secret: 'secretSession',
+//     cookie: {
+//       maxAge: 120000,
+//     },
+//   })
+// );
+
+//Mongo Sessions
+const URI = 'mongodb+srv://pmilitello:12345@cluster0.op8ms3d.mongodb.net/ecommerce?retryWrites=true&w=majority';
 app.use(
   session({
+    store: new mongoStore({
+      mongoUrl: URI,
+    }),
     secret: 'secretSession',
+    cookie: {
+      maxAge: 120000,
+    },
   })
 );
 
@@ -44,8 +65,13 @@ app.use(
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/views', viewsRouter);
-app.use('/login', loginRouter);
-app.use('/loginSession', loginSession);
+//app.use('/login', loginRouter);
+app.use('/register', registerRouter);
+//app.use('/loginSession', loginSession);
+
+app.get('/createCookie', (req, res) => {
+  res.cookie('cookie2', 'Second Cookie').send('Cookie added');
+});
 
 app.get('/readCookie', (req, res) => {
   const { cookie1, cookie2 } = req.cookies;

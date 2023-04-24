@@ -1,7 +1,12 @@
-<form action='/loginSession' method='post'>
-  Username:
-  <input type='text' name='username' id='username' />
+<h2>LOGIN</h2>
+
+<form action='/register/login' method='post'>
+  Email:
+  <input type='email' name='email' id='email' />
   Password:
   <input type='password' name='password' id='password' />
-  <input type='submit' value='Send' />
+  <input type='submit' value='ENTRY' />
 </form>
+
+<h2>New User?</h2>
+<button onclick="location.href='/register'">Go to Register</button>
